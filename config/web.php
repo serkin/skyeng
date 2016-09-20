@@ -44,6 +44,10 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 'POST users' => 'user/create',
+                'POST challenges' => 'challenge/create',
+                'GET challenges/<id:\d+>' => 'challenge/view',
+                'GET challenges/<id:\d+>/question' => 'challenge/question',
+                'POST challenges/<id:\d+>/question' => 'challenge/answer',
             ],
         ],
 
