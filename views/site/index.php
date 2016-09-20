@@ -1,53 +1,48 @@
-<?php
-
-/* @var $this yii\web\View */
-
-$this->title = 'My Yii Application';
-?>
-<div class="site-index">
+<div class="site-index" ng-controller="DictionaryController">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <h1>Словарь</h1>
     </div>
 
     <div class="body-content">
 
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+        <div class="row" ng-init="step = 'login';">
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+            <div ng-show="step == 'login'">
+                <form ng-submit = "LoginForm.$valid && createUser()" name="LoginForm">
+                    Ваше имя: <input type="text" name="username" ng-model = "username" required>
+                    <button ng-disabled = "LoginForm.$invalid">Начать тест</button>
+                </form>
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
+
+            <div ng-show="step == 'question'">
+                <h2 class="dictionary-task-question ng-cloak">{{test.question.word}}</h2>
+                <div class="answers">
+                    <p ng-repeat="word in test.answers">
+                    <input type="radio"
+                        ng-model="id_chosen_word" value="{{word.id_word}}"
+                        ng-click="sendAnswer(word.id_word)"> {{word.word}}
+                    </p>
+                </div>
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+            <div ng-show="step == 'review'">
+                <p>Правильных ответов: <span class="result-rate">{{review.questionsCompleted}}</span></p>
+                <p>Ошибок: <span class="result-fault-cnt">{{review.questionsFailed}}</span></p>
+                <div class="result-fault-list">
+                    <span class="label label-danger fault-word" ng-repeat="word in review.failedAnswers">{{word}}</span>
+                </div>
             </div>
+
+
+            <div ng-show="step != 'login'">
+                <hr>
+                <p class="text-center"><button type="button" class="btn btn-default btn-xs btn-reset" ng-click="newChallenge()">Начать заново</button></p>
+            </div>
+
         </div>
-
     </div>
 </div>
