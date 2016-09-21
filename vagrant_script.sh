@@ -22,6 +22,9 @@ sudo apt-get -y install php5 php5-mcrypt
 
 php -r "readfile('https://getcomposer.org/installer');" | php
 mv composer.phar /usr/local/bin/composer
+
+composer global require "fxp/composer-asset-plugin:*"
+
 # cd /vagrant
 # /usr/local/bin/composer install
 
