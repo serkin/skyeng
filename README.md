@@ -12,6 +12,7 @@
     vagrant up
     vagrant ssh
     cd /vagrant
+    composer global require "fxp/composer-asset-plugin:*"
     composer install
     php yii migrate
     php yii serve --port=8888
@@ -28,6 +29,7 @@ Create DB `yii2basic`
 ```bash
     git clone https://github.com/serkin/skyeng.git
     cd skyeng
+    composer global require "fxp/composer-asset-plugin:*"
     composer install
     php yii migrate
     php -S localhost:8888  -t web
